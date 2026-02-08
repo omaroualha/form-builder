@@ -4,11 +4,15 @@ declare(strict_types=1);
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FormController;
+use App\Http\Controllers\PublicFormController;
 use Illuminate\Support\Facades\Route;
 
 // Public routes
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
+
+Route::get('/public/forms/{slug}', [PublicFormController::class, 'show']);
+Route::post('/public/forms/{slug}/submit', [PublicFormController::class, 'submit']);
 
 // Protected routes
 Route::middleware('auth:sanctum')->group(function (): void {
@@ -22,4 +26,6 @@ Route::middleware('auth:sanctum')->group(function (): void {
     Route::get('/forms/{form}', [FormController::class, 'show']);
     Route::put('/forms/{form}', [FormController::class, 'update']);
     Route::delete('/forms/{form}', [FormController::class, 'destroy']);
+
+    Route::get('/forms/{form}/submissions', [FormController::class, 'submissions']);
 });

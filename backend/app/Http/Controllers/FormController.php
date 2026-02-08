@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreFormRequest;
 use App\Http\Requests\UpdateFormRequest;
 use App\Http\Resources\FormResource;
+use App\Http\Resources\SubmissionResource;
 use App\Models\Form;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -31,6 +32,13 @@ class FormController extends Controller
         ]);
 
         return (new FormResource($form))->response()->setStatusCode(201);
+    }
+
+    public function submissions(Form $form): AnonymousResourceCollection
+    {
+        $this->authorize('view', $form);
+
+        return SubmissionResource::collection($form->submissions()->latest()->get());
     }
 
     public function show(Form $form): FormResource
