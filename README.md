@@ -1,6 +1,6 @@
 # Mini Form Builder
 
-Full-stack form builder — create forms with a drag-and-drop-style builder, publish them via shareable links, and collect submissions.
+Full-stack form builder — create simple forms, publish them via shareable links, and collect submissions.
 
 Built with **Laravel 12**, **React 18 + TypeScript**, and **PostgreSQL**. Deployed with Docker and CI/CD via GitHub Actions.
 
