@@ -97,10 +97,8 @@ Service Classes (HTTP) → React Query Hooks (cache/mutations) → Pages (UI)
 ## Testing
 
 ```bash
-# Backend (30 tests)
 docker compose exec app php artisan test
 
-# Frontend (30 tests)
 cd frontend && npm test
 ```
 
@@ -110,6 +108,10 @@ Push to `main` triggers GitHub Actions:
 1. **test-frontend** — runs Vitest
 2. **test-backend** — runs Pest against PostgreSQL
 3. **deploy** — SSHs into VPS, pulls code, rebuilds Docker containers
+
+## Commit Convention
+
+Commit messages follow [Gitmoji](https://gitmoji.dev/) — because plain text commits are boring.
 
 ## Docker Services
 
