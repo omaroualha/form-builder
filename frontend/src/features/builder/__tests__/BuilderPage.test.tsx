@@ -66,6 +66,10 @@ describe('BuilderPage', () => {
       expect(screen.getByPlaceholderText('Field label')).toBeInTheDocument();
       expect(screen.getByPlaceholderText('field_name')).toBeInTheDocument();
     });
+
+    // Label and name inputs should be required
+    expect(screen.getByPlaceholderText('Field label')).toBeRequired();
+    expect(screen.getByPlaceholderText('field_name')).toBeRequired();
   });
 
   it('shows save button', () => {

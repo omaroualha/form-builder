@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { usePublicForm, useSubmitPublicForm } from '../hooks/useForms';
 import type { FormField } from '@/api/services/forms';
@@ -49,18 +49,23 @@ function FieldRenderer({ field, value, onChange }: FieldRendererProps) {
 
     case 'select':
       return (
-        <Select value={(value as string) || ''} onValueChange={handleChange}>
-          <SelectTrigger>
-            <SelectValue placeholder="Select an option" />
-          </SelectTrigger>
-          <SelectContent>
-            {field.options?.map((option) => (
-              <SelectItem key={option.value} value={option.value}>
-                {option.label}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+        <>
+          <Select value={(value as string) || ''} onValueChange={handleChange}>
+            <SelectTrigger>
+              <SelectValue placeholder="Select an option" />
+            </SelectTrigger>
+            <SelectContent>
+              {field.options?.map((option) => (
+                <SelectItem key={option.value} value={option.value}>
+                  {option.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          {field.required && (
+            <input type="hidden" value={(value as string) || ''} required />
+          )}
+        </>
       );
 
     case 'radio':
@@ -108,6 +113,15 @@ export function PublicFormPage() {
 
   const { data: form, isLoading, error } = usePublicForm(slug!);
   const submitMutation = useSubmitPublicForm(slug!);
+
+  // Initialize formData with field names so the payload is never empty
+  useEffect(() => {
+    if (form) {
+      const initial: Record<string, unknown> = {};
+      form.fields.forEach((f) => initial[f.name] = '');
+      setFormData(initial);
+    }
+  }, [form]);
 
   const handleFieldChange = (name: string, value: unknown) => {
     setFormData((prev) => ({ ...prev, [name]: value }));

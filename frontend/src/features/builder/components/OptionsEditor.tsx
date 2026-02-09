@@ -30,12 +30,14 @@ export function OptionsEditor({ options, onChange }: OptionsEditorProps) {
             onChange={(e) => update(i, { label: e.target.value })}
             placeholder="Label"
             className="flex-1"
+            required
           />
           <Input
             value={option.value}
             onChange={(e) => update(i, { value: e.target.value })}
             placeholder="Value"
             className="flex-1"
+            required
           />
           <Button type="button" variant="outline" size="icon" onClick={() => remove(i)}>
             <Trash2 className="w-4 h-4" />

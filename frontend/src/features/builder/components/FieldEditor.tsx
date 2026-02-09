@@ -72,6 +72,7 @@ export function FieldEditor({ field, index, onChange, onRemove }: FieldEditorPro
                   value={field.label}
                   onChange={(e) => onLabelChange(e.target.value)}
                   placeholder="Field label"
+                  required
                 />
               </div>
               <div className="space-y-2">
@@ -80,6 +81,7 @@ export function FieldEditor({ field, index, onChange, onRemove }: FieldEditorPro
                   value={field.name}
                   onChange={(e) => onNameChange(e.target.value)}
                   placeholder="field_name"
+                  required
                 />
               </div>
             </div>
