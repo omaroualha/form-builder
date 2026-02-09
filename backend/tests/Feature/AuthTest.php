@@ -139,3 +139,10 @@ it('cannot login with non-existent email', function (): void {
     $response->assertStatus(401)
         ->assertJson(['message' => 'Invalid credentials']);
 });
+
+it('returns 401 for unauthenticated requests to protected routes', function (): void {
+    $this->getJson('/api/forms')->assertStatus(401);
+    $this->postJson('/api/forms')->assertStatus(401);
+    $this->getJson('/api/user')->assertStatus(401);
+    $this->postJson('/api/logout')->assertStatus(401);
+});
