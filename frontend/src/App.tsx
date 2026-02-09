@@ -2,7 +2,11 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "@/api/queryClient";
 import { ProtectedRoute, LoginPage, RegisterPage } from "@/features/auth";
-import { DashboardPage } from "@/features/forms";
+import {
+  DashboardPage,
+  SubmissionsPage,
+  PublicFormPage,
+} from "@/features/forms";
 import { BuilderPage } from "@/features/builder";
 
 function App() {
@@ -36,7 +40,15 @@ function App() {
               </ProtectedRoute>
             }
           />
-
+          <Route
+            path="/forms/:id/submissions"
+            element={
+              <ProtectedRoute>
+                <SubmissionsPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/f/:slug" element={<PublicFormPage />} />
           <Route path="/" element={<Navigate to="/dashboard" replace />} />
         </Routes>
       </BrowserRouter>

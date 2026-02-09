@@ -10,7 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Plus, Trash2 } from "lucide-react";
+import { Plus, Pencil, Trash2, Eye, ExternalLink } from "lucide-react";
 import type { Form } from "@/api/services/forms";
 
 export function DashboardPage() {
@@ -41,6 +41,12 @@ export function DashboardPage() {
       <main className="container mx-auto px-4 py-8">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-2xl font-bold">Your Forms</h2>
+          <Button asChild>
+            <Link to="/forms/new">
+              <Plus className="w-4 h-4 mr-2" />
+              Create Form
+            </Link>
+          </Button>
         </div>
 
         {isLoading ? (
@@ -86,6 +92,30 @@ export function DashboardPage() {
                   </div>
                 </CardHeader>
                 <CardFooter className="flex gap-2">
+                  <Button variant="outline" size="sm" asChild>
+                    <Link to={`/forms/${form.id}`}>
+                      <Pencil className="w-4 h-4 mr-1" />
+                      Edit
+                    </Link>
+                  </Button>
+                  <Button variant="outline" size="sm" asChild>
+                    <Link to={`/forms/${form.id}/submissions`}>
+                      <Eye className="w-4 h-4 mr-1" />
+                      Submissions
+                    </Link>
+                  </Button>
+                  {form.status === "published" && (
+                    <Button variant="outline" size="sm" asChild>
+                      <a
+                        href={`/f/${form.slug}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <ExternalLink className="w-4 h-4 mr-1" />
+                        View
+                      </a>
+                    </Button>
+                  )}
                   <Button
                     variant="outline"
                     size="sm"

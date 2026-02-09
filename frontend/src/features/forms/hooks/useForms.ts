@@ -34,3 +34,17 @@ export function useFormSubmissions(formId: string) {
     enabled: Boolean(formId),
   });
 }
+
+export function usePublicForm(slug: string) {
+  return useQuery({
+    queryKey: ['public-form', slug],
+    queryFn: () => api.forms.getPublicForm(slug),
+    enabled: Boolean(slug),
+  });
+}
+
+export function useSubmitPublicForm(slug: string) {
+  return useMutation({
+    mutationFn: (data: Record<string, unknown>) => api.forms.submitPublicForm(slug, data),
+  });
+}

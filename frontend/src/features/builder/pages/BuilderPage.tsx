@@ -23,6 +23,9 @@ export function BuilderPage() {
       <BuilderHeader
         isEditing={builder.isEditing}
         isPending={builder.isPending}
+        status={builder.status}
+        slug={builder.form?.slug}
+        onTogglePublish={builder.togglePublish}
       />
 
       <main className="container mx-auto px-4 py-8">

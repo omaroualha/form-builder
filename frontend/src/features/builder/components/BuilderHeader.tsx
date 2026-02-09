@@ -1,13 +1,22 @@
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, ExternalLink } from "lucide-react";
 
 interface BuilderHeaderProps {
   isEditing: boolean;
   isPending: boolean;
+  status: "draft" | "published";
+  slug?: string;
+  onTogglePublish: () => void;
 }
 
-export function BuilderHeader({ isEditing, isPending }: BuilderHeaderProps) {
+export function BuilderHeader({
+  isEditing,
+  isPending,
+  status,
+  slug,
+  onTogglePublish,
+}: BuilderHeaderProps) {
   const navigate = useNavigate();
 
   return (
@@ -26,6 +35,24 @@ export function BuilderHeader({ isEditing, isPending }: BuilderHeaderProps) {
           </h1>
         </div>
         <div className="flex items-center gap-2">
+          {isEditing && (
+            <Button
+              type="button"
+              variant={status === "published" ? "outline" : "default"}
+              onClick={onTogglePublish}
+              disabled={isPending}
+            >
+              {status === "published" ? "Unpublish" : "Publish"}
+            </Button>
+          )}
+          {status === "published" && slug && (
+            <Button variant="outline" asChild>
+              <a href={`/f/${slug}`} target="_blank" rel="noopener noreferrer">
+                <ExternalLink className="w-4 h-4 mr-2" />
+                Preview
+              </a>
+            </Button>
+          )}
           <Button type="submit" form="form-builder" disabled={isPending}>
             {isPending ? "Saving..." : "Save Form"}
           </Button>

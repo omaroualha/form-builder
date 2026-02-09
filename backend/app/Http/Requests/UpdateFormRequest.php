@@ -17,6 +17,7 @@ class UpdateFormRequest extends FormRequest
     {
         return [
             'title' => ['sometimes', 'string', 'max:255'],
+            'status' => ['sometimes', 'string', 'in:draft,published'],
             'fields' => ['sometimes', 'array'],
             'fields.*.type' => ['required_with:fields', 'string', 'in:text,textarea,number,email,select,radio,checkbox,date'],
             'fields.*.label' => ['required_with:fields', 'string', 'max:255'],
